@@ -75,8 +75,6 @@
             <artifactId>extentreports</artifactId>
             <version>3.0.0</version>
         </dependency>
-
-
     </dependencies>
     <build>
         <plugins>
@@ -87,8 +85,8 @@
                 <configuration>
                     <runOrder>alphabetical</runOrder>
                     <includes>
-                        <include>**/FailedRunner.java</include>
                         <include>**/CukesRunner.java</include>
+                        <include>**/FailedRunner.java</include>
                     </includes>
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>

@@ -23,6 +23,11 @@ public abstract class BasePage {
     protected WebElement pageSubTitle;
 
 
+
+    @FindBy (css = "#user-menu>a")
+    protected WebElement userMenuName;
+
+
     public BasePage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
@@ -38,7 +43,17 @@ public abstract class BasePage {
         return pageSubTitle.getText();
     }
 
+    public String getUserMenuName() {
+        waitUntilLoaderScreenDisappear();
+        BrowserUtils.waitForStaleElement(userMenuName);
+        return userMenuName.getText();
+    }
 
+
+    public String getPageTitle(){
+        waitUntilLoaderScreenDisappear();
+        return Driver.getDriver().getTitle();
+    }
     /**
      * Waits until loader screen present. If loader screen will not pop up at all,
      * NoSuchElementException will be handled  bu try/catch block
@@ -48,9 +63,10 @@ public abstract class BasePage {
         try {
             WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 5);
             wait.until(ExpectedConditions.invisibilityOf(loaderMask));
+            logger.info("Loader mas gone...");
         } catch (Exception e) {
             logger.error("Loader mask doesn't present.");
-            System.out.println("Loader mask doesn't present.");
+            logger.error(e);
         }
     }
 
